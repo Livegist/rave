@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Telegram Mini App</title>
+  <style>
+    body { font-family: Arial; text-align: center; padding: 20px; }
+    .page { display: none; }
+    .active { display: block; }
+    button { padding: 10px 20px; margin: 10px; font-size: 16px; }
+  </style>
+</head>
+<body>
+  <!-- Welcome Page -->
+  <div id="welcome" class="page active">
+    <h1>Welcome to the App</h1>
+    <button onclick="showPage('home')">Enter App</button>
+  </div>
+
+  <!-- Home Page -->
+  <div id="home" class="page">
+    <h2>Home Page</h2>
+    <button onclick="showPage('page1')">Go to Page 1</button>
+    <button onclick="showPage('advert')">Watch Ad</button>
+  </div>
+
+  <!-- Page 1 -->
+  <div id="page1" class="page">
+    <h2>This is Page 1</h2>
+    <button onclick="showPage('home')">Back to Home</button>
+  </div>
+
+  <!-- Advert Page -->
+  <div id="advert" class="page">
+    <h2>Advertisement</h2>
+    <p>Ad will end in <span id="countdown">5</span> seconds...</p>
+  </div>
+
+  <!-- JS Logic -->
+  <script>
+    function showPage(pageId) {
+      document.querySelectorAll(".page").forEach(p => p.classList.remove("active"));
+      document.getElementById(pageId).classList.add("active");
+
+      // Ad countdown logic
+      if (pageId === "advert") {
+        let time = 5;
+        document.getElementById("countdown").textContent = time;
+        const interval = setInterval(() => {
+          time--;
+          document.getElementById("countdown").textContent = time;
+          if (time === 0) {
+            clearInterval(interval);
+            showPage("page1");
+          }
+        }, 1000);
+      }
+    }
+  </script>
+</body>
+</html>
